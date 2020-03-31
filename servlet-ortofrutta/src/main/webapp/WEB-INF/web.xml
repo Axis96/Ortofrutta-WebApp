@@ -52,15 +52,6 @@
         <url-pattern>/ModificaProdotto</url-pattern>
     </servlet-mapping>
     
-     <servlet>
-        <servlet-name>stampaProdotti</servlet-name>
-        <servlet-class>it.dstech.ortofrutta.Stampa</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>stampaProdotti</servlet-name>
-        <url-pattern>/Stampa</url-pattern>
-    </servlet-mapping>
-    
     
     <welcome-file-list>
 	<welcome-file>/Homepage.jsp</welcome-file>
