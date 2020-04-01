@@ -1,13 +1,17 @@
 package it.dstech.ortofrutta;
 
 import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,8 +66,23 @@ public class GestioneDB {
 		prepareStatement.execute();
 	}
 	
-	
+	public void acquistaProdotti(Map<String, String> mappaQuantit‡) throws ClassNotFoundException, SQLException, InterruptedException {
+		
+		for (Prodotto prodottoDaAggiornare : getListaProdotti()) {
+			for (String oggettoId : mappaQuantit‡.keySet()) {
+				if(prodottoDaAggiornare.getId() == Integer.parseInt(oggettoId)) {
+					String queryUpdateProdotto= "UPDATE prodotti set quantitaResidua=? where idProdotto=? ;";
+					PreparedStatement prepareStatement = connessione.prepareStatement(queryUpdateProdotto);
+					int nuovaQuantit‡ =(prodottoDaAggiornare.getQuantit‡Residua()- Integer.parseInt(mappaQuantit‡.get(oggettoId)));
+					prepareStatement.setInt(1, nuovaQuantit‡);
+					prepareStatement.setInt(2, Integer.parseInt(oggettoId));
+					prepareStatement.execute();
+				}
+			}
+		}
+	}
 
+	
 	
 	public boolean aggiungiProdotto(Prodotto p ) throws SQLException, ClassNotFoundException, InterruptedException  {
 		for (Prodotto prodotto : getListaProdotti()) {
